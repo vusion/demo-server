@@ -16,6 +16,7 @@ const handleCustomCode = require('@/plugin/handleCustomCode');
 const config = require('config');
 const logger = require('@/utils/logger');
 const log = logger.createLogger('app');
+const cors = require('@koa/cors');
 
 // middlewares
 const body = require('koa-better-body');
@@ -33,6 +34,7 @@ module.exports = (options) => {
     app.name = config.name;
     app.keys = config.keys;
     app.proxy = true;
+    app.use(cors());
     // 请求正文解析
     app.use(body({
         multipart: true,
