@@ -22,6 +22,8 @@ const body = require('koa-better-body');
 const validate = require('koa-validate');
 const convert = require('koa-convert'); // 兼容koa1
 
+global.Promise = require('bluebird');
+
 module.exports = (options) => {
     const app = new Koa();
     // 兼容koa

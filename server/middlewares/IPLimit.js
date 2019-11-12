@@ -10,9 +10,27 @@ const config = require('~/config');
 const logger = require('@/utils/logger');
 
 const log = logger.createLogger('app:auth');
-
+const LRU = require('lru-cache');
 const excludePathRegs = (config.auth.exclude || []).map((path) => ptr(path));
 const isExcludePath = (path) => excludePathRegs.some((re) => re.test(path));
+
+const limitIPCache = new LRU({
+    max: 100,
+    maxAge: 1000 * 60,
+});
+const limitIPStore = {
+    get(key) {
+        return limitIPCache.get(key);
+    },
+
+    set(key, value) {
+        return limitIPCache.set(key, value);
+    },
+
+    destroy(key) {
+        return limitIPCache.del(key);
+    },
+};
 /* 作业1:实现对所有GET方法，路径传参name=admin的请求拦截
  *      ctx.request.query 获取请求路径请求参数对象
  *      ctx.method 获取请求的方法
@@ -23,8 +41,11 @@ module.exports = (options) => async function auth(ctx, next) {
     // 举例,捞取配置文件中auth.exclude的配置，对配置里的路径进行拦截
     // 针对请求过滤路径admin/的路径,进行拦截返回
     // 可增加条件对其他请求进行拦截
-    if (isExcludePath(ctx.path))
-        return ctx.setBodyContent('Unauthorized', '您不具备查询该信息权限');
-
+    const IP = ctx.IP;
+    const visitCount = limitIPStore.get(IP) || 0;
+    if (visitCount > 2000) {
+        return ctx.setBodyContent('Unauthorized', '您访问超过限制');
+    }
+    limitIPStore.set(IP, visitCount + 1);
     await next();
 };

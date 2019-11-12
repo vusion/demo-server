@@ -77,7 +77,12 @@ const userDb = {
     * */
     updateUser(model) {
         // 请补充: return new User()......
-
+        return User.query((qb) => {
+            qb.where('id', '=', model.id);
+        }).save(model, { method: 'update', require: false }).then((info) => info && info.toJSON()).catch((error) => {
+            console.error(error);
+            throw error;
+        });
     },
 };
 module.exports = userDb;
