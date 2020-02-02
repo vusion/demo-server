@@ -32,9 +32,10 @@ module.exports = {
         response(ctx, await ingressService.createIngress(ingress));
     },
     async updateIngress(ctx) {
-        const { InstanceId, Description } = ctx.request.fields;
+        const { InstanceId, Name, Description } = ctx.request.fields;
         const ingress = {
             InstanceId,
+            Name,
             Description,
         };
         response(ctx, await ingressService.updateIngress(ingress));

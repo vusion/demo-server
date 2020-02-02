@@ -14,7 +14,11 @@ yarn.lock
 .cache
 .npm
 
+# Temp
+tmp
+
 # Environment
+.env
 
 # Dependency directories
 node_modules/
