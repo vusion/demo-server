@@ -36,5 +36,8 @@ module.exports = [
             'getSubnets => #getSubnets',
             'getSecurityGroups => #getSecurityGroups',
         ] },
+        { path: 'uploader', controller: 'uploader', children: [
+            'post upload => #upload',
+        ] },
     ] },
 ];

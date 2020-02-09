@@ -24,6 +24,7 @@
         </u-sidebar-group>
         <u-sidebar-group title="表单页">
             <u-sidebar-item to="/ingress/create">基础表单</u-sidebar-item>
+            <u-sidebar-item to="/form/upload">上传</u-sidebar-item>
         </u-sidebar-group>
         <u-sidebar-group title="个人页">
             <u-sidebar-item to="/account/info">个人信息</u-sidebar-item>
