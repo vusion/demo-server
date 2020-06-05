@@ -35,10 +35,11 @@ module.exports = (options) => {
     app.keys = config.keys;
     app.proxy = true;
     app.use(cors());
-    app.use((ctx) => {
+    app.use(async (ctx, next) => {
         ctx.response.headers['Access-Control-Allow-Origin'] = '*';
         ctx.response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, PATCH, OPTIONS';
         ctx.response.headers['Access-Control-Allow-Headers'] = 'X-Requested-With, content-type, Authorization';
+        await next();
     });
     // 请求正文解析
     app.use(body({
