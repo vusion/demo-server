@@ -34,14 +34,7 @@ module.exports = (options) => {
     app.name = config.name;
     app.keys = config.keys;
     app.proxy = true;
-    app.use(cors());
-    app.use(async (ctx, next) => {
-        ctx.set('Access-Control-Allow-Origin', '*');
-        ctx.set('Access-Control-Allow-Credentials', 'true');
-        ctx.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-        ctx.set('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
-        await next();
-    });
+
     // 请求正文解析
     app.use(body({
         multipart: true,
@@ -52,6 +45,24 @@ module.exports = (options) => {
     loadMw(app, options);
     // 插件: 请求返回改造
     handleCustomCode(app);
+
+    // app.use(async (ctx, next) => {
+    //     ctx.set('Access-Control-Allow-Origin', 'http://localhost:12800');
+    //     ctx.set('Access-Control-Allow-Credentials', 'true');
+    //     ctx.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    //     ctx.set('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
+
+    //     if (ctx.method === 'OPTIONS')
+    //         ctx.body = 200;
+    //     else
+    //         await next();
+    // });
+    app.use(cors({
+        credentials: true,
+        allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+        allowHeaders: 'X-Requested-With,content-type,Authorization',
+    }));
+
     // 视图引擎
     log.info('加载ejs模板,路径=>' + path.resolve(__dirname, '../client/pages'));
     app.use(views(path.resolve(__dirname, '../client/pages'), {
