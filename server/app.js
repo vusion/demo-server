@@ -36,10 +36,10 @@ module.exports = (options) => {
     app.proxy = true;
     app.use(cors());
     app.use(async (ctx, next) => {
-        ctx.response.headers['Access-Control-Allow-Origin'] = '*';
-        ctx.response.headers['Access-Control-Allow-Credentials'] = true;
-        ctx.response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, PATCH, OPTIONS';
-        ctx.response.headers['Access-Control-Allow-Headers'] = 'X-Requested-With, content-type, Authorization';
+        ctx.set('Access-Control-Allow-Origin', '*');
+        ctx.set('Access-Control-Allow-Credentials', 'true');
+        ctx.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+        ctx.set('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
         await next();
     });
     // 请求正文解析
