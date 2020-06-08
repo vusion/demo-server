@@ -27,7 +27,7 @@ module.exports = {
         response(ctx, await assetService.getTypes());
     },
     async create(ctx) {
-        const { Model, AssetNumber, Memory, Cpu, Harddisk, Type, User, Department } = ctx.request.fields;
+        const { Model, AssetNumber, Memory, Cpu, Harddisk, Type, User } = ctx.request.fields;
         const asset = {
             Model,
             AssetNumber,
@@ -36,12 +36,11 @@ module.exports = {
             Harddisk,
             Type,
             User,
-            Department,
         };
         response(ctx, await assetService.create(asset));
     },
     async update(ctx) {
-        const { Id, Model, AssetNumber, Memory, Cpu, Harddisk, Type, User, Department } = ctx.request.fields;
+        const { Id, Model, AssetNumber, Memory, Cpu, Harddisk, Type, User } = ctx.request.fields;
         const asset = {
             Id,
             Model,
@@ -51,7 +50,6 @@ module.exports = {
             Harddisk,
             Type,
             User,
-            Department,
         };
         response(ctx, await assetService.update(asset));
     },

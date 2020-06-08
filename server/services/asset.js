@@ -8,10 +8,10 @@ const filename = path.resolve(__dirname, '../models/mock/asset/asset.model.json'
 const { writeJSONFile, getJSONFile } = require('../utils/fs');
 
 module.exports = {
-    getDetail(id) {
+    getDetail(Id) {
         return new Promise((resolve, reject) => {
             const assetList = getJSONFile(filename);
-            const detail = assetList.find((item) => item.id === id);
+            const detail = assetList.find((item) => item.Id === Id);
             setTimeout(() => {
                 if (!detail) {
                     reject({
@@ -105,25 +105,13 @@ module.exports = {
         });
     },
     getDepartmentStatistics() {
-        const assetList = getJSONFile(filename) || [];
-        return new Promise((resolve, reject) => {
-            if (!assetList.length)
-                return resolve([]);
-            const map = {};
-            assetList.forEach((item) => {
-                if (!map[item.Department]) {
-                    map[item.Department] = 0;
-                }
-                map[item.Department] = ++map[item.Department];
-            });
-            const result = [];
-            const total = assetList.length;
-            Object.keys(map).forEach((name) => {
-                const percent = Math.round(map[name] / total * 100);
-                result.push({ percent, name });
-            });
-            return resolve(result);
-        });
+        const sourceData = [
+            { percent: 10, name: '人力资源部' },
+            { percent: 20, name: '测试部' },
+            { percent: 35, name: '研发部' },
+            { percent: 35, name: '运维部' },
+        ];
+        return new Promise((resolve, reject) => resolve(sourceData));
     },
     getTypeStatistics() {
         const assetList = getJSONFile(filename) || [];
