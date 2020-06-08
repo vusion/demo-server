@@ -39,5 +39,19 @@ module.exports = [
         { path: 'uploader', controller: 'uploader', children: [
             'post upload => #upload',
         ] },
+        { path: 'asset', controller: 'asset', children: [
+            'get getDetail => #getDetail',
+            'get getList => #getList',
+            'post getList => #getList',
+            'get getTypes => #getTypes',
+            'post create => #create',
+            'put update => #update',
+            'put updateUser => #updateUser',
+            'put updateStatus => #updateStatus',
+            'delete delete => #delete',
+            'get getDepartmentStatistics => #getDepartmentStatistics',
+            'get getTypeStatistics => #getTypeStatistics',
+            'get getCreateStatistics => #getCreateStatistics',
+        ] },
     ] },
 ];

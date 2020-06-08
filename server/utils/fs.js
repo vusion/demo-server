@@ -21,11 +21,16 @@ module.exports = {
     },
     writeJSONFile(filename, content) {
         return new Promise((resolve, reject) => {
-            fs.writeFileSync(filename, JSON.stringify(content), 'utf-8', (err) => {
+            fs.writeFileSync(filename, JSON.stringify(content, null, 4), 'utf-8', (err) => {
                 if (err)
                     return reject(err);
                 resolve();
             });
         });
+    },
+    getJSONFile(filename) {
+        if (!fs.existsSync(filename))
+            return {};
+        return JSON.parse(fs.readFileSync(filename, 'utf-8'));
     },
 };
