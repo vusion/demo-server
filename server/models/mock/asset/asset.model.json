@@ -1,44 +1,15 @@
 [
     {
-        "Model": "Dell E2414H",
-        "AssetNumber": "HIH-M-5347",
-        "Memory": "8G",
-        "Cpu": "8200",
-        "Harddisk": "200G",
-        "Type": "台式机",
-        "User": "测试1",
-        "Id": "193f0250-2afb-4055-ada9-ba621532b8b4",
-        "CreateAt": 1591605041090,
-        "UpdateAt": 1591605041090,
-        "Status": "接收中",
-        "Department": "部门1"
-    },
-    {
-        "Model": "Dell E2414H",
-        "AssetNumber": "HIH-M-5347",
-        "Memory": "8G",
-        "Cpu": "8200",
-        "Harddisk": "200G",
-        "Type": "台式机",
-        "User": "测试2",
-        "Id": "193f0250-2afb-4055-ada9-ba621532b8b2",
-        "CreateAt": 1591605041090,
-        "UpdateAt": 1591605041090,
-        "Status": "已修复",
-        "Department": "部门1"
-    },
-    {
-        "Model": "Dell E2414H",
-        "AssetNumber": "HIH-M-5347",
-        "Memory": "8G",
-        "Cpu": "8200",
-        "Harddisk": "200G",
-        "Type": "笔记本",
-        "User": "测试3",
-        "Id": "193f0250-2afb-4055-ada9-ba621532b8b2",
-        "CreateAt": 1591605041090,
-        "UpdateAt": 1591605041090,
-        "Status": "已修复",
-        "Department": "部门2"
+        "model": "Dell E2414H",
+        "assetNumber": "HIH-M-5347",
+        "memory": "8G",
+        "cpu": "8200",
+        "harddisk": "200G",
+        "type": "笔记本",
+        "user": "测试2",
+        "id": "5a8d14d7-7721-48a2-8303-6dd9731da6f1",
+        "createAt": 1591672831206,
+        "updateAt": 1591672831206,
+        "status": "receiving"
     }
 ]

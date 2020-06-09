@@ -52,6 +52,7 @@ module.exports = [
             'get getDepartmentStatistics => #getDepartmentStatistics',
             'get getTypeStatistics => #getTypeStatistics',
             'get getCreateStatistics => #getCreateStatistics',
+            'get getStatus => #getStatus',
         ] },
     ] },
 ];

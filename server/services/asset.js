@@ -8,10 +8,10 @@ const filename = path.resolve(__dirname, '../models/mock/asset/asset.model.json'
 const { writeJSONFile, getJSONFile } = require('../utils/fs');
 
 module.exports = {
-    getDetail(Id) {
+    getDetail(id) {
         return new Promise((resolve, reject) => {
             const assetList = getJSONFile(filename);
-            const detail = assetList.find((item) => item.Id === Id);
+            const detail = assetList.find((item) => item.id === id);
             setTimeout(() => {
                 if (!detail) {
                     reject({
@@ -25,14 +25,14 @@ module.exports = {
     },
     getList(options) {
         const assetList = getJSONFile(filename);
-        const offset = options.Offset || 0;
-        const limit = options.Limit !== undefined ? options.Limit : assetList.length;
+        const offset = options.offset || 0;
+        const limit = options.limit !== undefined ? options.limit : assetList.length;
 
         return new Promise((resolve, reject) => {
             let arrangedData = Array.from(assetList);
-            if (options.Filter) {
-                Object.keys(options.Filter).forEach((key) => {
-                    arrangedData = arrangedData.filter((item) => item[key] && item[key].startsWith(options.Filter[key]));
+            if (options.filter) {
+                Object.keys(options.filter).forEach((key) => {
+                    arrangedData = arrangedData.filter((item) => item[key] && item[key].startsWith(options.filter[key]));
                 });
             }
             setTimeout(() => resolve({
@@ -43,10 +43,10 @@ module.exports = {
     },
     create(asset) {
         Object.assign(asset, {
-            Id: faker.random.uuid(),
-            CreateAt: new Date().getTime(),
-            UpdateAt: new Date().getTime(),
-            Status: '接收中',
+            id: faker.random.uuid(),
+            createAt: new Date().getTime(),
+            updateAt: new Date().getTime(),
+            status: 'receiving',
         });
         const assetList = getJSONFile(filename);
         assetList.push(asset);
@@ -62,7 +62,7 @@ module.exports = {
     update(asset) {
         return new Promise((resolve, reject) => {
             const assetList = getJSONFile(filename);
-            const detail = assetList.find((item) => item.Id === asset.Id);
+            const detail = assetList.find((item) => item.id === asset.id);
             setTimeout(() => {
                 if (!detail) {
                     reject({
@@ -86,9 +86,9 @@ module.exports = {
             }, randomNum(500));
         });
     },
-    delete(Id) {
+    delete(id) {
         const assetList = getJSONFile(filename);
-        const assetListTemp = assetList.filter((asset) => asset.Id !== Id);
+        const assetListTemp = assetList.filter((asset) => asset.id !== id);
         writeJSONFile(filename, assetListTemp).then(() => new Promise((resolve) => {
             setTimeout(() => {
                 resolve({
@@ -120,10 +120,10 @@ module.exports = {
                 return resolve({});
             const map = {};
             assetList.forEach((item) => {
-                if (!map[item.Type]) {
-                    map[item.Type] = 0;
+                if (!map[item.type]) {
+                    map[item.type] = 0;
                 }
-                map[item.Type] = ++map[item.Type];
+                map[item.type] = ++map[item.type];
             });
             const result = [];
             Object.keys(map).forEach((name) => {
@@ -140,11 +140,11 @@ module.exports = {
                 return resolve({});
             const map = {};
             assetList.forEach((item) => {
-                if (!map[item.CreateAt]) {
-                    map[item.CreateAt] = {};
-                    types.forEach((key) => map[item.CreateAt][key] = 0);
+                if (!map[item.createAt]) {
+                    map[item.createAt] = {};
+                    types.forEach((key) => map[item.createAt][key] = 0);
                 }
-                map[item.CreateAt][item.Type] = ++map[item.CreateAt][item.Type];
+                map[item.createAt][item.type] = ++map[item.createAt][item.type];
             });
             const result = [];
             Object.keys(map).forEach((time) => {
@@ -155,6 +155,17 @@ module.exports = {
                 result.push(temp);
             });
             return resolve(result);
+        });
+    },
+    getStatus() {
+        const status = [
+            { value: 'unattended', text: '未归属' },
+            { value: 'belonged', text: '已归属' },
+            { value: 'receiving', text: '接受中' },
+            { value: 'transferring', text: '转移中' },
+        ];
+        return new Promise((resolve) => {
+            setTimeout(() => resolve(status), randomNum(500));
         });
     },
 };

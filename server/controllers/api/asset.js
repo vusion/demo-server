@@ -15,11 +15,11 @@ module.exports = {
         response(ctx, await assetService.getDetail(ctx.query.id));
     },
     async getList(ctx) {
-        const { Offset, Limit } = ctx.request.query;
+        const { offset, limit } = ctx.request.query;
         const options = {
-            Offset,
-            Limit,
-            Filter: ctx.request.fields && ctx.request.fields.Filter || {},
+            offset,
+            limit,
+            filter: ctx.request.fields && ctx.request.fields.filter || {},
         };
         response(ctx, await assetService.getList(options));
     },
@@ -27,50 +27,50 @@ module.exports = {
         response(ctx, await assetService.getTypes());
     },
     async create(ctx) {
-        const { Model, AssetNumber, Memory, Cpu, Harddisk, Type, User } = ctx.request.fields;
+        const { model, assetNumber, memory, cpu, harddisk, type, user } = ctx.request.fields;
         const asset = {
-            Model,
-            AssetNumber,
-            Memory,
-            Cpu,
-            Harddisk,
-            Type,
-            User,
+            model,
+            assetNumber,
+            memory,
+            cpu,
+            harddisk,
+            type,
+            user,
         };
         response(ctx, await assetService.create(asset));
     },
     async update(ctx) {
-        const { Id, Model, AssetNumber, Memory, Cpu, Harddisk, Type, User } = ctx.request.fields;
+        const { id, model, assetNumber, memory, cpu, harddisk, type, user } = ctx.request.fields;
         const asset = {
-            Id,
-            Model,
-            AssetNumber,
-            Memory,
-            Cpu,
-            Harddisk,
-            Type,
-            User,
+            id,
+            model,
+            assetNumber,
+            memory,
+            cpu,
+            harddisk,
+            type,
+            user,
         };
         response(ctx, await assetService.update(asset));
     },
     async delete(ctx) {
-        response(ctx, await assetService.delete(ctx.request.fields.Id));
+        response(ctx, await assetService.delete(ctx.request.fields.id));
     },
     // 转移资产
     async updateUser(ctx) {
-        const { Id, User } = ctx.request.fields;
+        const { id, user } = ctx.request.fields;
         const asset = {
-            Id,
-            User,
+            id,
+            user,
         };
         response(ctx, await assetService.update(asset));
     },
     // 修改状态
     async updateStatus(ctx) {
-        const { Id, Status } = ctx.request.fields;
+        const { id, status } = ctx.request.fields;
         const asset = {
-            Id,
-            Status,
+            id,
+            status,
         };
         response(ctx, await assetService.update(asset));
     },
