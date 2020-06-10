@@ -15,11 +15,15 @@ module.exports = {
         response(ctx, await assetService.getDetail(ctx.query.id));
     },
     async getList(ctx) {
-        const { offset, limit } = ctx.request.query;
+        const { offset, limit, assetNumber, type, model, status, user } = ctx.request.query;
         const options = {
             offset,
             limit,
-            filter: ctx.request.fields && ctx.request.fields.filter || {},
+            assetNumber,
+            type,
+            model,
+            status,
+            user,
         };
         response(ctx, await assetService.getList(options));
     },

@@ -27,14 +27,14 @@ module.exports = {
         const assetList = getJSONFile(filename);
         const offset = options.offset || 0;
         const limit = options.limit !== undefined ? options.limit : assetList.length;
+        const searchKey = ['assetNumber', 'type', 'model', 'status', 'user'];
 
         return new Promise((resolve, reject) => {
             let arrangedData = Array.from(assetList);
-            if (options.filter) {
-                Object.keys(options.filter).forEach((key) => {
-                    arrangedData = arrangedData.filter((item) => item[key] && item[key].startsWith(options.filter[key]));
-                });
-            }
+            searchKey.forEach((key) => {
+                if (options[key])
+                    arrangedData = arrangedData.filter((item) => item[key] && item[key].startsWith(options[key]));
+            });
             setTimeout(() => resolve({
                 data: arrangedData.slice(offset, offset + limit),
                 total: arrangedData.length,
