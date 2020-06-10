@@ -83,4 +83,7 @@ module.exports = {
     async getCreateStatistics(ctx) {
         response(ctx, await assetService.getCreateStatistics());
     },
+    async getStatus(ctx) {
+        response(ctx, await assetService.getStatus());
+    },
 };
