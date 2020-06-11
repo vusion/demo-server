@@ -18,9 +18,15 @@ module.exports = {
         return new Promise((resolve, reject) => {
             const assetList = getJSONFile(filename);
             const detail = assetList.find((item) => item.id === id);
+            if (!id) {
+                return resolve({
+                    message: '没有该资产',
+                    code: 404,
+                });
+            }
             setTimeout(() => {
                 if (!detail) {
-                    resolve({
+                    return resolve({
                         message: '没有该资产',
                         code: 404,
                     });
@@ -30,7 +36,7 @@ module.exports = {
                     detail.user = user.text;
                 else
                     detail.user = detail.user || '';
-                resolve(detail);
+                return resolve(detail);
             }, randomNum(500));
         });
     },

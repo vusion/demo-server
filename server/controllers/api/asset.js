@@ -12,7 +12,7 @@ const response = (ctx, data) => {
 
 module.exports = {
     async getDetail(ctx) {
-        response(ctx, await assetService.getDetail(ctx.query.id));
+        response(ctx, await assetService.getDetail(ctx.request.query.id));
     },
     async getList(ctx) {
         const { offset, limit, assetNumber, type, model, status, userId } = ctx.request.query;
