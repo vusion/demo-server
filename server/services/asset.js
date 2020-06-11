@@ -14,7 +14,7 @@ module.exports = {
             const detail = assetList.find((item) => item.id === id);
             setTimeout(() => {
                 if (!detail) {
-                    reject({
+                    resolve({
                         message: '没有该资产',
                         code: 404,
                     });
