@@ -15,7 +15,7 @@ module.exports = {
         response(ctx, await assetService.getDetail(ctx.query.id));
     },
     async getList(ctx) {
-        const { offset, limit, assetNumber, type, model, status, user } = ctx.request.query;
+        const { offset, limit, assetNumber, type, model, status, userId } = ctx.request.query;
         const options = {
             offset,
             limit,
@@ -23,7 +23,7 @@ module.exports = {
             type,
             model,
             status,
-            user,
+            userId,
         };
         response(ctx, await assetService.getList(options));
     },
@@ -31,7 +31,7 @@ module.exports = {
         response(ctx, await assetService.getTypes());
     },
     async create(ctx) {
-        const { model, assetNumber, memory, cpu, harddisk, type, user } = ctx.request.fields;
+        const { model, assetNumber, memory, cpu, harddisk, type, userId } = ctx.request.fields;
         const asset = {
             model,
             assetNumber,
@@ -39,12 +39,12 @@ module.exports = {
             cpu,
             harddisk,
             type,
-            user,
+            userId,
         };
         response(ctx, await assetService.create(asset));
     },
     async update(ctx) {
-        const { id, model, assetNumber, memory, cpu, harddisk, type, user } = ctx.request.fields;
+        const { id, model, assetNumber, memory, cpu, harddisk, type, userId } = ctx.request.fields;
         const asset = {
             id,
             model,
@@ -53,7 +53,7 @@ module.exports = {
             cpu,
             harddisk,
             type,
-            user,
+            userId,
         };
         response(ctx, await assetService.update(asset));
     },
@@ -62,10 +62,10 @@ module.exports = {
     },
     // 转移资产
     async updateUser(ctx) {
-        const { id, user } = ctx.request.fields;
+        const { id, userId } = ctx.request.fields;
         const asset = {
             id,
-            user,
+            userId,
         };
         response(ctx, await assetService.update(asset));
     },
@@ -89,5 +89,8 @@ module.exports = {
     },
     async getStatus(ctx) {
         response(ctx, await assetService.getStatus());
+    },
+    async getUsers(ctx) {
+        response(ctx, await assetService.getUsers());
     },
 };

@@ -6,6 +6,12 @@ const randomNum = faker.random.number;
 const filename = path.resolve(__dirname, '../models/mock/asset/asset.model.json');
 // const assetList = require(filename);
 const { writeJSONFile, getJSONFile } = require('../utils/fs');
+const users = [
+    { value: '001', text: '严跃杰' },
+    { value: '002', text: '张晓容' },
+    { value: '003', text: '赵雨森' },
+    { value: '004', text: '张磊' },
+];
 
 module.exports = {
     getDetail(id) {
@@ -19,6 +25,11 @@ module.exports = {
                         code: 404,
                     });
                 }
+                const user = users.find((tempUser) => tempUser.value === detail.userId);
+                if (user)
+                    detail.user = user.text;
+                else
+                    detail.user = detail.user || '';
                 resolve(detail);
             }, randomNum(500));
         });
@@ -27,13 +38,21 @@ module.exports = {
         const assetList = getJSONFile(filename);
         const offset = options.offset || 0;
         const limit = options.limit !== undefined ? options.limit : assetList.length;
-        const searchKey = ['assetNumber', 'type', 'model', 'status', 'user'];
+        const searchKey = ['assetNumber', 'type', 'model', 'status', 'userId'];
 
         return new Promise((resolve, reject) => {
             let arrangedData = Array.from(assetList);
             searchKey.forEach((key) => {
                 if (options[key])
                     arrangedData = arrangedData.filter((item) => item[key] && item[key].startsWith(options[key]));
+            });
+            arrangedData = arrangedData.map((item) => {
+                const user = users.find((tempUser) => tempUser.value === item.userId);
+                if (user)
+                    item.user = user.text;
+                else
+                    item.user = item.user || '';
+                return item;
             });
             setTimeout(() => resolve({
                 data: arrangedData.slice(offset, offset + limit),
@@ -166,6 +185,11 @@ module.exports = {
         ];
         return new Promise((resolve) => {
             setTimeout(() => resolve(status), randomNum(500));
+        });
+    },
+    getUsers() {
+        return new Promise((resolve) => {
+            setTimeout(() => resolve(users), randomNum(500));
         });
     },
 };

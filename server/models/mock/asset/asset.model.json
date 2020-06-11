@@ -11,5 +11,31 @@
         "createAt": 1591672831206,
         "updateAt": 1591672831206,
         "status": "receiving"
+    },
+    {
+        "model": "Dell E2414H",
+        "assetNumber": "HIH-M-5347",
+        "memory": "8G",
+        "cpu": "8200",
+        "harddisk": "200G",
+        "type": "笔记本",
+        "userId": "003",
+        "id": "17e92c92-ce3a-4669-abfc-ed03e2a9237c",
+        "createAt": 1591859383168,
+        "updateAt": 1591859383168,
+        "status": "receiving"
+    },
+    {
+        "model": "Dell E2414H2",
+        "assetNumber": "HIH-M-53472",
+        "memory": "8G",
+        "cpu": "8200",
+        "harddisk": "200G",
+        "type": "笔记本",
+        "userId": "001",
+        "id": "dd32bfc6-a118-40ab-af29-01aedacb9573",
+        "createAt": 1591860847126,
+        "updateAt": 1591860847126,
+        "status": "receiving"
     }
 ]

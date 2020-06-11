@@ -53,6 +53,7 @@ module.exports = [
             'get getTypeStatistics => #getTypeStatistics',
             'get getCreateStatistics => #getCreateStatistics',
             'get getStatus => #getStatus',
+            'get getUsers => #getUsers',
         ] },
     ] },
 ];
