@@ -50,7 +50,7 @@ module.exports = {
             let arrangedData = Array.from(assetList);
             searchKey.forEach((key) => {
                 if (options[key])
-                    arrangedData = arrangedData.filter((item) => item[key] && item[key].startsWith(options[key]));
+                    arrangedData = arrangedData.filter((item) => item[key] && item[key].includes(options[key]));
             });
             arrangedData = arrangedData.map((item) => {
                 const user = users.find((tempUser) => tempUser.value === item.userId);
@@ -71,8 +71,10 @@ module.exports = {
             id: faker.random.uuid(),
             createAt: new Date().getTime(),
             updateAt: new Date().getTime(),
-            status: 'receiving',
+            status: 'unattended',
         });
+        if (asset.userId)
+            asset.status = 'receiving';
         const assetList = getJSONFile(filename);
         assetList.push(asset);
         writeJSONFile(filename, assetList).then(() => new Promise((resolve) => {
