@@ -42,7 +42,6 @@ module.exports = [
         { path: 'asset', controller: 'asset', children: [
             'get getDetail => #getDetail',
             'get getList => #getList',
-            'post getList => #getList',
             'get getTypes => #getTypes',
             'post create => #create',
             'put update => #update',
